@@ -1,0 +1,16 @@
+<head>
+  <script src="/polyfills.js" defer></script>
+  <script>
+    window.WebComponents = window.WebComponents || {
+      waitFor(cb) {
+        addEventListener('WebComponentsReady', cb);
+      },
+    };
+    WebComponents.waitFor(async () => {
+      import('./index.js');
+    });
+  </script>
+</head>
+<body>
+  <my-element text="this is a test"></my-element>
+</body>
