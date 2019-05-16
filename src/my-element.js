@@ -14,6 +14,4 @@ const register = () => {
   customElements.define('my-element', MyElement);
 };
 
-window.loadComponents = () => {
-  register();
-};
+export default register;

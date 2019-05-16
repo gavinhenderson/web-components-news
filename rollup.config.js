@@ -5,7 +5,7 @@ export default {
   output: {
     dir: 'docs',
     format: 'es',
-    sourcemap: true,
+    sourcemap: false,
   },
   plugins: [resolve()],
 };
