@@ -5,6 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "build": "rollup -c",
+    "start": "npm run dev",
+    "dev": "concurrently \"rollup -w -c\" \"cd docs && http-server\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,8 +20,11 @@
   },
   "homepage": "https://github.com/gavinhenderson/web-components-news#readme",
   "dependencies": {
+    "concurrently": "^4.1.0",
     "rollup": "^1.12.0",
     "rollup-plugin-node-resolve": "^5.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  }
 }
