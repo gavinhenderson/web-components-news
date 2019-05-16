@@ -14,6 +14,22 @@ const register = () => {
   customElements.define('my-element', MyElement);
 };
 
+class NewsList extends HTMLElement {
+  constructor() {
+    super();
+
+    const maxItems = this.getAttribute('max-items');
+    const apiKey = this.getAttribute('api-key');
+
+    console.log(maxItems);
+    console.log(apiKey);
+  }
+}
+
+const register$1 = () => {
+  customElements.define('news-list', NewsList);
+};
+
 window.WebComponents = window.WebComponents || {
   waitFor(cb) {
     addEventListener('WebComponentsReady', cb);
@@ -21,4 +37,5 @@ window.WebComponents = window.WebComponents || {
 };
 WebComponents.waitFor(async () => {
   register();
+  register$1();
 });
