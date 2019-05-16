@@ -1,5 +1,26 @@
+:root {
+  --headerColour: #3363ff;
+  --textOnHeader: white;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
 header {
   width: 100vw;
   height: 4rem;
-  background: blue;
+  background: var(--headerColour);
+  color: var(--textOnHeader);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 1rem;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
 }
