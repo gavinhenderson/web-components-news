@@ -1,1 +1,1 @@
-import '@webcomponents/webcomponentsjs';
+import '@webcomponents/webcomponentsjs/webcomponents-loader';
