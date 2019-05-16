@@ -14,6 +14,11 @@ const register = () => {
   customElements.define('my-element', MyElement);
 };
 
-window.loadComponents = () => {
-  register();
+window.WebComponents = window.WebComponents || {
+  waitFor(cb) {
+    addEventListener('WebComponentsReady', cb);
+  },
 };
+WebComponents.waitFor(async () => {
+  register();
+});
