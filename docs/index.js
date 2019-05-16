@@ -1,17 +1,11 @@
-class MyElement extends HTMLElement {
-  constructor() {
-    super();
+const getNews = async (apiKey) => {
+  const response = await fetch(
+    `https://newsapi.org/v2/top-headlines?country=gb&apiKey=${apiKey}`,
+  );
 
-    const pElem = document.createElement('p');
-    pElem.textContent = this.getAttribute('text');
+  const { articles } = await response.json();
 
-    const shadowRoot = this.attachShadow({ mode: 'closed' });
-    shadowRoot.appendChild(pElem);
-  }
-}
-
-const register = () => {
-  customElements.define('my-element', MyElement);
+  return articles;
 };
 
 class NewsList extends HTMLElement {
@@ -21,13 +15,35 @@ class NewsList extends HTMLElement {
     const maxItems = this.getAttribute('max-items');
     const apiKey = this.getAttribute('api-key');
 
+    getNews(apiKey).then(console.log);
+
     console.log(maxItems);
     console.log(apiKey);
+
+    this.newsItems = [];
+
+    for (let i = 0; i < parseInt(maxItems); i++) {
+      const current = document.createElement('news-article');
+      this.appendChild(current);
+      this.newsItems.push(current);
+    }
+  }
+}
+
+const register = () => {
+  customElements.define('news-list', NewsList);
+};
+
+class NewsArticle extends HTMLElement {
+  constructor() {
+    super();
+
+    // this.innerHTML('test');
   }
 }
 
 const register$1 = () => {
-  customElements.define('news-list', NewsList);
+  customElements.define('news-article', NewsArticle);
 };
 
 window.WebComponents = window.WebComponents || {

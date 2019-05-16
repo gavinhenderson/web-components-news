@@ -1,5 +1,5 @@
-import registerMyElement from './my-element';
 import registerNewsList from './news-list';
+import registerNewsArticle from './news-article';
 
 window.WebComponents = window.WebComponents || {
   waitFor(cb) {
@@ -7,6 +7,6 @@ window.WebComponents = window.WebComponents || {
   },
 };
 WebComponents.waitFor(async () => {
-  registerMyElement();
   registerNewsList();
+  registerNewsArticle();
 });
