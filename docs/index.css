@@ -11,7 +11,7 @@ h1 {
 
 header {
   width: 100vw;
-  height: 4rem;
+  min-height: 2.375rem;
   background: var(--headerColour);
   color: var(--textOnHeader);
   display: flex;
