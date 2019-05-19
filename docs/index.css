@@ -24,6 +24,7 @@ header {
 news-list {
   flex-grow: 1;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* iOS smooth scroll */
   z-index: 1;
 }
 
