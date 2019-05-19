@@ -90,6 +90,10 @@ class NewsArticle extends HTMLElement {
   set article(newArticle) {
     const imgElement = this._shadowRoot.querySelector('.thumbnail');
 
+    const titleNoSource = newArticle.title.split(' - ')[0];
+
+    imgElement.alt = `Thumbnail image for article titled ${titleNoSource}`;
+
     imgElement.onload = () => {
       imgElement.style.opacity = 1;
     };
