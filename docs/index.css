@@ -18,7 +18,7 @@ header {
   flex-direction: column;
   justify-content: center;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-  padding-bottom: 2px;
+  margin-bottom: 1rem;
 }
 
 news-list {
