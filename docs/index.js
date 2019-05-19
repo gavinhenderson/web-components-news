@@ -15,8 +15,6 @@ class NewsList extends HTMLElement {
     const maxItems = this.getAttribute('max-items');
     const apiKey = this.getAttribute('api-key');
 
-    getNews(apiKey).then(console.log);
-
     this.newsItems = [];
 
     for (let i = 0; i < parseInt(maxItems); i++) {
@@ -24,6 +22,13 @@ class NewsList extends HTMLElement {
       this.appendChild(current);
       this.newsItems.push(current);
     }
+    setTimeout(() => {
+      getNews(apiKey).then((articles) => {
+        articles.forEach((article, index) => {
+          this.newsItems[index].article = article;
+        });
+      });
+    }, 2000);
   }
 }
 
@@ -51,6 +56,13 @@ const style = `
       width: 11rem;
       height: 100%;
       background: #A8A8A8;
+    }
+
+    .thumbnail {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s;
     }
 
     .content-container {
@@ -111,6 +123,16 @@ class NewsArticle extends HTMLElement {
 
     this._shadowRoot = this.attachShadow({ mode: 'closed' });
     this._shadowRoot.innerHTML = style + content;
+  }
+
+  set article(newArticle) {
+    const imgElement = this._shadowRoot.querySelector('.thumbnail');
+
+    imgElement.onload = () => {
+      imgElement.style.opacity = 1;
+    };
+
+    imgElement.src = newArticle.urlToImage;
   }
 }
 

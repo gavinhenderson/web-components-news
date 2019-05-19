@@ -20,6 +20,13 @@ const style = `
       background: #A8A8A8;
     }
 
+    .thumbnail {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
     .content-container {
       flex-grow: 1;
       margin-left: 0.5rem;
@@ -78,6 +85,16 @@ class NewsArticle extends HTMLElement {
 
     this._shadowRoot = this.attachShadow({ mode: 'closed' });
     this._shadowRoot.innerHTML = style + content;
+  }
+
+  set article(newArticle) {
+    const imgElement = this._shadowRoot.querySelector('.thumbnail');
+
+    imgElement.onload = () => {
+      imgElement.style.opacity = 1;
+    };
+
+    imgElement.src = newArticle.urlToImage;
   }
 }
 

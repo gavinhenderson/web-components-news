@@ -7,8 +7,6 @@ class NewsList extends HTMLElement {
     const maxItems = this.getAttribute('max-items');
     const apiKey = this.getAttribute('api-key');
 
-    getNews(apiKey).then(console.log);
-
     this.newsItems = [];
 
     for (let i = 0; i < parseInt(maxItems); i++) {
@@ -16,6 +14,13 @@ class NewsList extends HTMLElement {
       this.appendChild(current);
       this.newsItems.push(current);
     }
+    setTimeout(() => {
+      getNews(apiKey).then((articles) => {
+        articles.forEach((article, index) => {
+          this.newsItems[index].article = article;
+        });
+      });
+    }, 2000);
   }
 }
 
