@@ -42,17 +42,46 @@ const style = `
       width: 95%;
       display: flex;
       flex-direction: row;
-      margin-bottom: .5rem;
+      margin-top: .5rem;
+      height: 6.1875rem;
+    }
+
+    .separator {
+      padding: 0 0.25rem;
     }
 
     .thumbnail-container {
       width: 11rem;
-      height: 6.1875rem;
+      height: 100%;
       background: #A8A8A8;
     }
 
     .content-container {
       flex-grow: 1;
+      margin-left: 0.5rem;
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+    }
+
+    .greyed-out-area {
+      width: 100%;
+      height: 1rem;
+      background: #D8D8D8
+    }
+
+    .half-width {
+      width: 50%;
+    }
+
+    .margin-below {
+      margin-bottom: 0.25rem;
+    }
+
+    .bottom-area {
+      flex-grow: 1;
+      display:flex;
+      align-items: flex-end;
     }
   </style>
 `;
@@ -65,7 +94,15 @@ const content = `
     </div>
     
     <div class='content-container'>
-      <p>article</p>
+      <div>
+        <div class='greyed-out-area margin-below'></div>
+        <div class='greyed-out-area margin-below'></div>
+        <div class='greyed-out-area half-width'></div>
+      </div>
+
+      <div class='bottom-area'>
+        <div class='greyed-out-area'></div><span class='separator'>|</span><div class='greyed-out-area'></div>
+      </div>
     </div>
 
   </div>
