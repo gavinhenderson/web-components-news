@@ -9,9 +9,6 @@ class NewsList extends HTMLElement {
 
     getNews(apiKey).then(console.log);
 
-    console.log(maxItems);
-    console.log(apiKey);
-
     this.newsItems = [];
 
     for (let i = 0; i < parseInt(maxItems); i++) {

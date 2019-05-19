@@ -78,8 +78,6 @@ class NewsArticle extends HTMLElement {
 
     this._shadowRoot = this.attachShadow({ mode: 'closed' });
     this._shadowRoot.innerHTML = style + content;
-
-    console.log(this);
   }
 }
 

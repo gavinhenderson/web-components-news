@@ -17,9 +17,6 @@ class NewsList extends HTMLElement {
 
     getNews(apiKey).then(console.log);
 
-    console.log(maxItems);
-    console.log(apiKey);
-
     this.newsItems = [];
 
     for (let i = 0; i < parseInt(maxItems); i++) {
@@ -114,8 +111,6 @@ class NewsArticle extends HTMLElement {
 
     this._shadowRoot = this.attachShadow({ mode: 'closed' });
     this._shadowRoot.innerHTML = style + content;
-
-    console.log(this);
   }
 }
 
