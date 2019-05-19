@@ -14,13 +14,15 @@ class NewsList extends HTMLElement {
       this.appendChild(current);
       this.newsItems.push(current);
     }
-    setTimeout(() => {
-      getNews(apiKey).then((articles) => {
-        articles.forEach((article, index) => {
+
+    getNews(apiKey).then((articles) => {
+      articles.forEach((article, index) => {
+        // This delay is for a nice demo
+        setTimeout(() => {
           this.newsItems[index].article = article;
-        });
+        }, Math.random() * 2000);
       });
-    }, 2000);
+    });
   }
 }
 
