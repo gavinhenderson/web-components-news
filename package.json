@@ -7,7 +7,7 @@
     "build": "rollup -c",
     "start": "npm run dev",
     "dev": "concurrently \"rollup -w -c\" \"cd docs && http-server\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "rollup-plugin-node-resolve": "^5.0.0"
   },
   "devDependencies": {
-    "http-server": "^0.11.1"
+    "http-server": "^0.11.1",
+    "jest": "^24.8.0"
   }
 }
