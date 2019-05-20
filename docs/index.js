@@ -119,6 +119,15 @@ const content = `
   </div>
 `;
 
+const getHttpUrl = (fullUrl) => {
+  if (!fullUrl.startsWith('https') && fullUrl.startsWith('http')) {
+    const withoutHttp = fullUrl.split('http://')[1];
+    return `https://${withoutHttp}`;
+  }
+
+  return fullUrl;
+};
+
 class NewsArticle extends HTMLElement {
   constructor() {
     super();
@@ -129,7 +138,6 @@ class NewsArticle extends HTMLElement {
 
   set article(newArticle) {
     const imgElement = this._shadowRoot.querySelector('.thumbnail');
-    console.log(newArticle);
 
     const titleNoSource = newArticle.title.split(' - ')[0];
 
@@ -139,7 +147,11 @@ class NewsArticle extends HTMLElement {
       imgElement.style.opacity = 1;
     };
 
-    imgElement.src = newArticle.urlToImage;
+    const { urlToImage } = newArticle;
+
+    const imgUrl = getHttpUrl(urlToImage);
+
+    imgElement.src = imgUrl;
   }
 }
 
