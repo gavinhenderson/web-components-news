@@ -25,6 +25,7 @@ const style = `
       height: 100%;
       opacity: 0;
       transition: opacity 0.5s;
+      object-fit: cover;
     }
 
     .content-container {
