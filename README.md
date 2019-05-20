@@ -1,4 +1,4 @@
-# The News
+# The News [![Build Status](https://travis-ci.org/gavinhenderson/web-components-news.svg?branch=master)](https://travis-ci.org/gavinhenderson/web-components-news)
 
 > A news app written using Web Components
 
