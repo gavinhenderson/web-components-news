@@ -7,7 +7,7 @@
     "build": "rollup -c",
     "start": "npm run dev",
     "dev": "concurrently \"rollup -w -c\" \"cd docs && http-server\"",
-    "test": "jest"
+    "test": "npm run build && jest"
   },
   "repository": {
     "type": "git",
@@ -25,7 +25,11 @@
     "rollup-plugin-node-resolve": "^5.0.0"
   },
   "devDependencies": {
+    "express": "^4.17.0",
     "http-server": "^0.11.1",
-    "jest": "^24.8.0"
+    "jest": "^24.8.0",
+    "lighthouse": "^5.0.0",
+    "node-static": "^0.7.11",
+    "puppeteer": "^1.16.0"
   }
 }
