@@ -66,7 +66,7 @@ const content = `
     </div>
     
     <div class='content-container'>
-      <div>
+      <div class='title-area'>
         <div class='greyed-out-area margin-below'></div>
         <div class='greyed-out-area margin-below'></div>
         <div class='greyed-out-area half-width'></div>
@@ -81,7 +81,7 @@ const content = `
 `;
 
 const getHttpUrl = (fullUrl) => {
-  if (!fullUrl.startsWith('https') && fullUrl.startsWith('http')) {
+  if (fullUrl && !fullUrl.startsWith('https') && fullUrl.startsWith('http')) {
     const withoutHttp = fullUrl.split('http://')[1];
     return `https://${withoutHttp}`;
   }
@@ -97,22 +97,39 @@ class NewsArticle extends HTMLElement {
     this._shadowRoot.innerHTML = style + content;
   }
 
-  set article(newArticle) {
+  set image(urlToImage) {
     const imgElement = this._shadowRoot.querySelector('.thumbnail');
 
-    const titleNoSource = newArticle.title.split(' - ')[0];
-
-    imgElement.alt = `Thumbnail image for article titled ${titleNoSource}`;
+    this.imgElement = imgElement;
 
     imgElement.onload = () => {
       imgElement.style.opacity = 1;
     };
 
-    const { urlToImage } = newArticle;
-
     const imgUrl = getHttpUrl(urlToImage);
 
     imgElement.src = imgUrl;
+  }
+
+  set title(newTitle) {
+    console.log('new title', newTitle);
+    this.imgElement.alt = `Thumbnail image for article titled ${newTitle}`;
+
+    this.titleElement = this._shadowRoot.querySelector('.title-area');
+
+    const newTitleElement = document.createElement('p');
+    newTitleElement.textContent = newTitle;
+
+    // this.titleElement.appendChild(newTitleElement);
+  }
+
+  set article(newArticle) {
+    const { urlToImage, title } = newArticle;
+
+    const titleNoSource = title.split(' - ')[0];
+
+    this.image = urlToImage;
+    this.title = titleNoSource;
   }
 }
 
