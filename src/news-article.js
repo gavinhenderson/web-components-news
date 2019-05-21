@@ -1,3 +1,5 @@
+const FADETIME = 1; // in seconds;
+
 const style = `
   <style>
     .article-container {
@@ -50,6 +52,11 @@ const style = `
       flex-grow: 1;
       display:flex;
       align-items: flex-end;
+      position:relative;
+    }
+
+    .news-outlet {
+      position: absolute;
     }
     
     .title-area {
@@ -63,17 +70,27 @@ const style = `
       line-height: 1;
     }
 
+
     .greyed-out-area {
       width: 100%;
       height: 1.1rem;
       box-sizing: border-box;
       background: #D8D8D8;
       opacity: 1;
-      transition: opacity 1s;
+      transition: opacity ${FADETIME}s;
     }
 
     .half-width {
       width: 50%;
+    }
+
+    .news-outlet {
+      z-index: -1;
+      color:red;
+    }
+
+    .news-outlet:visited {
+      color:red
     }
     </style>
 `;
@@ -95,7 +112,8 @@ const content = `
       </div>
 
       <div class='bottom-area'>
-        <div class='greyed-out-area'></div><span class='separator'>|</span><div class='greyed-out-area'></div>
+        <a class='news-outlet'>BBC News</a>
+        <div class='greyed-out-area'></div>
       </div>
     </div>
 
@@ -134,7 +152,6 @@ class NewsArticle extends HTMLElement {
   }
 
   set title(newTitle) {
-    console.log('new title', newTitle);
     this.imgElement.alt = `Thumbnail image for article titled ${newTitle}`;
 
     this.titleElement = this._shadowRoot.querySelector('.title-area');
@@ -146,16 +163,51 @@ class NewsArticle extends HTMLElement {
       .querySelectorAll('.greyed-out-area')
       .forEach((current) => {
         current.style.opacity = 0;
+
+        setTimeout(() => {
+          current.remove();
+        }, FADETIME * 1000);
       });
   }
 
   set article(newArticle) {
     const { urlToImage, title } = newArticle;
 
-    const titleNoSource = title.split(' - ')[0];
+    const titleSplit = title.split(' - ');
+    const titleNoSource = titleSplit
+      .slice(0, titleSplit.length - 1)
+      .join(' - ');
+    const sourceName = titleSplit[titleSplit.length - 1];
+
+    const cropTitle = (uncropped) => {
+      if (uncropped.length < 100) return uncropped;
+
+      return uncropped.slice(0, 100) + '...';
+    };
+
+    const source = {
+      name: sourceName,
+      url: newArticle.url,
+    };
 
     this.image = urlToImage;
-    this.title = titleNoSource;
+    this.title = cropTitle(titleNoSource);
+    this.source = source;
+  }
+
+  set source(source) {
+    const newsOutlet = this._shadowRoot.querySelector('.news-outlet');
+    newsOutlet.href = source.url;
+    newsOutlet.textContent = source.name;
+
+    const bottomArea = this._shadowRoot.querySelector('.bottom-area');
+    const greyedArea = bottomArea.querySelector('.greyed-out-area');
+    greyedArea.style.opacity = 0;
+
+    setTimeout(() => {
+      greyedArea.remove();
+      newsOutlet.style['z-index'] = 0;
+    }, FADETIME * 1000);
   }
 }
 
