@@ -36,26 +36,46 @@ const style = `
       flex-direction: column;
     }
 
-    .greyed-out-area {
-      width: 100%;
-      height: 1rem;
-      background: #D8D8D8
-    }
-
+    
     .half-width {
       width: 50%;
     }
-
-    .margin-below {
-      margin-bottom: 0.25rem;
+    
+    .line-gap {
+      /* margin: 0.125rem 0;
+      box-sizing: border-box; */
     }
-
+    
     .bottom-area {
       flex-grow: 1;
       display:flex;
       align-items: flex-end;
     }
-  </style>
+    
+    .title-area {
+      position: relative;
+    }
+    
+    .title-text {
+      position: absolute;
+      z-index: -1;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .greyed-out-area {
+      width: 100%;
+      height: 1.1rem;
+      box-sizing: border-box;
+      background: #D8D8D8;
+      opacity: 1;
+      transition: opacity 1s;
+    }
+
+    .half-width {
+      width: 50%;
+    }
+    </style>
 `;
 
 const content = `
@@ -67,8 +87,10 @@ const content = `
     
     <div class='content-container'>
       <div class='title-area'>
-        <div class='greyed-out-area margin-below'></div>
-        <div class='greyed-out-area margin-below'></div>
+        <span class='title-text'>This is test text that is longer than one line for a test</span>
+        <div class='greyed-out-area margin-top margin-bottom'></div>
+        <div class='greyed-out-area margin-bottom'></div>
+        <div class='greyed-out-area margin-bottom'></div>
         <div class='greyed-out-area half-width'></div>
       </div>
 
@@ -117,10 +139,14 @@ class NewsArticle extends HTMLElement {
 
     this.titleElement = this._shadowRoot.querySelector('.title-area');
 
-    const newTitleElement = document.createElement('p');
-    newTitleElement.textContent = newTitle;
+    this.titleText = this.titleElement.querySelector('.title-text');
+    this.titleText.textContent = newTitle;
 
-    // this.titleElement.appendChild(newTitleElement);
+    this.titleElement
+      .querySelectorAll('.greyed-out-area')
+      .forEach((current) => {
+        current.style.opacity = 0;
+      });
   }
 
   set article(newArticle) {

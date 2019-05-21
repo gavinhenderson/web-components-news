@@ -28,6 +28,11 @@ news-list {
   z-index: 1;
 }
 
+news-article {
+  /* display: block;
+  position: absolute; */
+}
+
 body {
   padding: 0;
   margin: 0;
